@@ -47,6 +47,17 @@ def clean_data(data):
     data.loc[:, 'Frequency'] = data['Frequency'].map(drows)
     return data
 
+def weekday():
+    weekDays = ("Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday")
+    thisXMas    = datetime.date(2020,12,25)
+    thisXMasDay = thisXMas.weekday()
+    thisXMasDayAsString = weekDays[thisXMasDay]
+    print("This year's Christmas is on a {}".format(thisXMasDayAsString))
+
+    nextNewYear     = datetime.date(2021,1,1)
+    nextNewYearDay  = nextNewYear.weekday()
+    nextNewYearDayAsString = weekDays[nextNewYearDay]
+    print("Next New Year is on a {}".format(nextNewYearDayAsString))
 
 if __name__ == '__main__':
     # For introspections purpose to quickly get this functions on ipython
@@ -55,3 +66,4 @@ if __name__ == '__main__':
     df = pd.read_csv('{}/data/data.csv.gz'.format(folder_source))
     clean_data = clean_data(df)
     print(' dataframe cleaned')
+    print(weekday())

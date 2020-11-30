@@ -10,6 +10,7 @@ setup(name='pepnews',
       description="Project Description",
       packages=find_packages(),
       test_suite = 'tests',
+      install_requires=requirements,
       #include_package_data: to install data from MANIFEST.in
       include_package_data=True,
       scripts=['scripts/pepnews-run'],

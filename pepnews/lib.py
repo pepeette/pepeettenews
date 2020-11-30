@@ -47,7 +47,7 @@ def clean_data(data):
     data.loc[:, 'Frequency'] = data['Frequency'].map(drows)
     return data
 
-def weekday():
+def YearEndDays():
     weekDays = ("Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday")
     thisXMas    = datetime.date(2020,12,25)
     thisXMasDay = thisXMas.weekday()
@@ -66,4 +66,4 @@ if __name__ == '__main__':
     df = pd.read_csv('{}/data/data.csv.gz'.format(folder_source))
     clean_data = clean_data(df)
     print(' dataframe cleaned')
-    print(weekday())
+    print(YearEndDays())

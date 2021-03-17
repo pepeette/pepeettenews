@@ -1,3 +1,7 @@
+# My very first function deployed
+. created a calendar of which day Xmas will be this year
+. added the newspapers from chinese sources prompt that I finally managed to create
+
 # Data analysis
 - Document here the project: pepnews
 - Description: Project Description

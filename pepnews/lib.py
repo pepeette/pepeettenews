@@ -6,10 +6,50 @@
 from os.path import split
 import pandas as pd
 import datetime
+from newsapi import NewsApiClient
+from time import sleep
+import requests 
+from google_trans_new import google_translator 
 
 pd.set_option('display.width', 200)
 
+def news():
+    print('='*20)
 
+    API_KEY ="65115d9c499d4450b83bb88f94ea1c8a"
+    params = {
+      #"q":"Xiaomi"
+      #"country": "cn", #Note: you can't mix this param with the sources param.
+      "sources": "Appledaily.com, Aastocks.com, Sina.com.cn, Gold678.com, Eastmoney.com, xinhua-net, Finance.ce.cn, the-wall-street-journal , Chinatimes.com" ,
+      #"sources" :"bbc-news, bloomberg, CNBC, OilPrice.com, The Verge, Reuters", #Note: you can't mix this param with the country or category params.
+      #"language":"cn", #it cannot be mixed with sources
+      "pageSize" : "5",  #result number :20 is the default, 100 is the maximum.
+      "sortBy" : "publishedAt" # options: relevancy, popularity, publishedAt
+      #"category": "business", #Note: you can't mix this param with the sources param.
+    }
+    headers={'X-Api-Key': API_KEY,}
+    main_url = "http://newsapi.org/v2/everything"
+    top_headlines = requests.get(main_url, params=params, headers=headers).json()
+    headlines= top_headlines['articles']
+    print("Here are some of the top articles\n\n")
+    top = [key["title"] for key in headlines] 
+
+    for i, key in enumerate(top):
+        print(i+1,key)
+        
+    print('='*20)
+
+    translator = google_translator()  
+    # text = translator.translate("Cerco un centro di gravità permanente", lang_src='it', lang_tgt='en')
+    # print(text)
+    for i, key in enumerate(top):
+        topen = translator.translate(key, lang_src='zh', lang_tgt='en')
+        print(i+1,topen)
+    #topen = top.apply(lambda x: translator.translate(x, lang_src='fr', lang_tgt='en'))
+    #options (headlines.url(10),headlines['title'].head(10),headlines['description'].head(10),headlines['content'].head(10))
+
+    print('='*20)
+   
 def clean_data(data):
     """ clean data
     """
@@ -65,5 +105,6 @@ if __name__ == '__main__':
     folder_source, _ = split(pepnews.__file__)
     df = pd.read_csv('{}/data/data.csv.gz'.format(folder_source))
     clean_data = clean_data(df)
+    print(news())
     print(' dataframe cleaned')
     print(Xmas())
